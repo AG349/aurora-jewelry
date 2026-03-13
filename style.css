@@ -41,8 +41,14 @@ padding:22px 24px;
 background:rgba(0,0,0,0.45);
 backdrop-filter:blur(14px);
 border-bottom:1px solid rgba(255,215,0,0.12);
-transition:transform 0.35s ease, padding 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
 transform:translateY(0);
+opacity:1;
+transition:
+transform 0.45s ease,
+opacity 0.45s ease,
+padding 0.35s ease,
+background 0.35s ease,
+box-shadow 0.35s ease;
 }
 
 header.scrolled{
@@ -52,7 +58,9 @@ box-shadow:0 10px 30px rgba(0,0,0,0.35);
 }
 
 header.hide{
-transform:translateY(-140px);
+transform:translateY(-120%);
+opacity:0;
+pointer-events:none;
 }
 
 .logo{
@@ -527,4 +535,36 @@ font-size:16px;
 
 body::-webkit-scrollbar{
 display:none;
+}### reconsider the solution. Maybe easier: position:absolute header within hero initially? But user wants header disappear with homepage when scroll down and reappear when scroll up at top of viewport. This is classic smart sticky; fixed + hide/show should work. If not, likely screenshot issue because capture tool pins fixed elements. They may want not fixed while scrolling down and appear fixed only on scroll up. Need CSS for header absolute inside page? We can suggest use position:absolute initially and JS toggles fixed class when scrolling up. Need provide both CSS and JS, and explain CSS alone not enough. Let's craft maybe simplest robust behavior:
+header default position:absolute; top:0 over hero.
+header.fixed-show {position:fixed; top:0; transform:translateY(0);}
+header.fixed-hide {position:fixed; top:0; transform:translateY(-120%);}
+When scrolling down beyond hero maybe keep hidden. At top, absolute. This means in screenshots while scrolling down the header won't remain sticky because absolute scrolls away with page. When scrolling slightly up anywhere, JS adds fixed-show causing it appear. Perfect. Need full CSS edits maybe only header-related parts and JS.
+
+Need answer concise but enough. Let's provide full CSS maybe only relevant replacements. User asked edit current css. Better full code likely huge. But can give exact header-related replacements plus mention script. Yet user repeatedly asks full code. Let's produce full CSS maybe too long but okay. Need include JS too because necessary. Let's craft robust JS:
+const header=document.querySelector("header");
+let lastScrollY=window.scrollY;
+function updateHeader(){
+ const y=window.scrollY;
+ if(y<=10){ header.classList.remove('fixed-show','fixed-hide','scrolled'); }
+ else{
+   header.classList.add('scrolled');
+   if(y>lastScrollY){ // down
+      header.classList.remove('fixed-show');
+      header.classList.add('fixed-hide');
+   } else { // up
+      header.classList.remove('fixed-hide');
+      header.classList.add('fixed-show');
+   }
+ }
+ lastScrollY=y;
 }
+On load call.
+CSS:
+header default position:absolute; top:0;
+header.fixed-show, header.fixed-hide {position:fixed; top:0; left:0; right:0;}
+header.fixed-hide{transform:translateY(-120%); opacity:0; pointer-events:none;}
+header.fixed-show{transform:translateY(0); opacity:1;}
+At top no class -> absolute and scrolls away with hero.
+
+Let's give full CSS replacing current one. Need ensure scrolled styling applies in fixed show/hide too. Let's craft. Also mention hard refresh. Let's final.
