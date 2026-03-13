@@ -6,6 +6,8 @@ box-sizing:border-box;
 
 html{
 scroll-behavior:smooth;
+width:100%;
+overflow-x:hidden;
 }
 
 body{
@@ -14,18 +16,27 @@ background:#060606;
 color:#ffffff;
 line-height:1.6;
 overflow-x:hidden;
+width:100%;
+max-width:100%;
+}
+
+img{
+max-width:100%;
+display:block;
 }
 
 header{
 position:fixed;
 top:0;
 left:0;
+right:0;
 width:100%;
+max-width:100%;
 z-index:1000;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:22px 80px;
+padding:22px 24px;
 background:rgba(0,0,0,0.45);
 backdrop-filter:blur(14px);
 border-bottom:1px solid rgba(255,215,0,0.12);
@@ -33,7 +44,7 @@ transition:0.35s ease;
 }
 
 header.scrolled{
-padding:16px 80px;
+padding:16px 24px;
 background:rgba(0,0,0,0.78);
 box-shadow:0 10px 30px rgba(0,0,0,0.35);
 }
@@ -50,6 +61,7 @@ nav{
 display:flex;
 align-items:center;
 gap:34px;
+flex-wrap:wrap;
 }
 
 nav a{
@@ -150,6 +162,7 @@ font-weight:700;
 color:#111111;
 box-shadow:0 10px 24px rgba(212,175,55,0.28);
 transition:0.35s ease;
+max-width:100%;
 }
 
 button:hover{
@@ -168,6 +181,7 @@ background:
 radial-gradient(circle at top left, rgba(212,175,55,0.08), transparent 25%),
 radial-gradient(circle at bottom right, rgba(255,255,255,0.03), transparent 20%),
 linear-gradient(to bottom,#070707,#0d0d0d);
+overflow-x:hidden;
 }
 
 .section-title{
@@ -194,6 +208,7 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:34px;
 align-items:stretch;
+width:100%;
 }
 
 .card{
@@ -208,6 +223,7 @@ box-shadow:
 0 14px 35px rgba(0,0,0,0.45),
 inset 0 1px 0 rgba(255,255,255,0.04);
 backdrop-filter:blur(8px);
+min-width:0;
 }
 
 .card::before{
@@ -268,12 +284,14 @@ font-size:28px;
 font-weight:700;
 margin:20px 0 8px;
 color:#fff4c8;
+word-break:break-word;
 }
 
 .card p{
 font-size:18px;
 color:#e1cf86;
 margin-bottom:18px;
+word-break:break-word;
 }
 
 .card button{
@@ -342,6 +360,7 @@ background:#050505;
 border-top:1px solid rgba(255,215,0,0.08);
 color:#d7d7d7;
 font-size:16px;
+overflow:hidden;
 }
 
 .reveal{
@@ -396,43 +415,61 @@ height:280px;
 header{
 flex-direction:column;
 gap:16px;
-padding:18px 20px;
+padding:18px 16px;
+width:100%;
+max-width:100%;
 }
+
 header.scrolled{
-padding:14px 20px;
+padding:14px 16px;
 }
+
 nav{
-gap:18px;
+gap:14px;
 flex-wrap:wrap;
 justify-content:center;
+width:100%;
 }
+
 .hero{
 min-height:78vh;
 padding:150px 16px 60px;
 background-position:center;
 }
+
+.hero-text{
+padding:30px 12px;
+}
+
 .hero-text h2{
 margin-bottom:16px;
 }
+
 .hero-text p{
 margin-bottom:22px;
 }
+
 .products{
 padding:80px 16px;
 }
+
 .product-container{
 grid-template-columns:1fr;
 gap:24px;
 }
+
 .card{
 padding:16px;
 }
+
 .card img{
 height:260px;
 }
+
 .story{
 padding:90px 18px;
 }
+
 .story p{
 font-size:18px;
 }
@@ -441,24 +478,39 @@ font-size:18px;
 @media (max-width:480px){
 .logo{
 font-size:30px;
+text-align:center;
 }
+
 nav a{
 font-size:14px;
 }
+
 .hero-text h2{
 font-size:44px;
 }
+
 .hero-text p{
 font-size:16px;
 }
+
 button{
 padding:12px 24px;
 font-size:14px;
 }
+
 .card img{
 height:220px;
 }
+
 .card h3{
 font-size:24px;
+}
+
+.section-title{
+font-size:32px;
+}
+
+.products .section-subtitle{
+font-size:16px;
 }
 }
