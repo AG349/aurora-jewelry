@@ -1,10 +1,10 @@
 function reveal(){
-let reveals=document.querySelectorAll(".reveal");
+const reveals=document.querySelectorAll(".reveal");
 
 for(let i=0;i<reveals.length;i++){
-let windowHeight=window.innerHeight;
-let elementTop=reveals[i].getBoundingClientRect().top;
-let elementVisible=120;
+const windowHeight=window.innerHeight;
+const elementTop=reveals[i].getBoundingClientRect().top;
+const elementVisible=120;
 
 if(elementTop<windowHeight-elementVisible){
 reveals[i].classList.add("active");
@@ -23,12 +23,25 @@ header.classList.remove("scrolled");
 }
 }
 
-window.addEventListener("scroll",()=>{
+function smoothButtons(){
+const buttons=document.querySelectorAll('button[onclick]');
+buttons.forEach(button=>{
+button.addEventListener("click",function(){
+const targetId=this.getAttribute("onclick").match(/'([^']+)'/);
+if(targetId&&document.getElementById(targetId[1])){
+document.getElementById(targetId[1]).scrollIntoView({behavior:"smooth"});
+}
+});
+});
+}
+
+window.addEventListener("scroll",function(){
 reveal();
 headerEffect();
 });
 
-window.addEventListener("load",()=>{
+window.addEventListener("load",function(){
 reveal();
 headerEffect();
+smoothButtons();
 });
